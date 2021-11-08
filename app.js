@@ -17,7 +17,31 @@ const movies = [
   { id: 8, name: "Jhon wick 2", isFav: false, isDeleted: true },
 ];
 
+// add to file
+function addToFile(movies) {
+  fs.writeFile("./read.json", JSON.stringify(movies), () => {
+    console.log("added");
+  });
+}
+
+// 
+app.post("/addMovie", (req, res) => {
+  fs.readFile("./read.json", (err, data) => {
+    let newMovie = JSON.parse(data.toString());
+
+    newMovie.push({
+      id: movies.length,
+      name: "Jhon wick 4,",
+      isFav: true,
+      isDeleted: false,
+    });
+    addToFile(newMovie);
+    res.status(200).json(newMovie);
+  });
+});
+
 // Get all movies
+
 app.get("/get", (req, res) => {
   res.status(200);
   res.json(movies);
