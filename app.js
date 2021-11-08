@@ -24,7 +24,7 @@ function addToFile(movies) {
   });
 }
 
-// 
+//
 app.post("/addMovie", (req, res) => {
   fs.readFile("./read.json", (err, data) => {
     let newMovie = JSON.parse(data.toString());
@@ -39,7 +39,13 @@ app.post("/addMovie", (req, res) => {
     res.status(200).json(newMovie);
   });
 });
+app.get("/getFiles", (req, res) => {
+  fs.readFile("./read.json", (err, data) => {
+    let movies = JSON.parse(data.toString());
 
+    res.status(200).json(movies);
+  });
+});
 // Get all movies
 
 app.get("/get", (req, res) => {
